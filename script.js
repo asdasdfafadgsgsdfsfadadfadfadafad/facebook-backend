@@ -22,7 +22,10 @@ app.get("/",(req,resp)=>{
 
     client.connect()
     .then(()=>client.query("select * from users"))
-    .then(data=>{resp.json(data)})
+    .then(data=>{
+        client.end()
+        resp.json(data)
+    })
     .finally(()=>client.end())
 
     
