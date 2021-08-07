@@ -19,7 +19,7 @@ const client = new pg({
 
 app.get("/",(req,resp)=>{
 
-    app.get("/",(req,resp)=>{
+
     client.connect()
     .then(()=>client.query("select * from users"))
     .then(data=>{resp.json(data)})
@@ -27,7 +27,7 @@ app.get("/",(req,resp)=>{
 
     
 
-})})
+})
 app.listen(process.env.PORT || 3000)
 
    
