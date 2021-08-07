@@ -20,14 +20,22 @@ const client = new pg({
 app.get("/",(req,resp)=>{
 
 
-    client.connect()
-    .then(()=>client.query("select * from users"))
-    .then(data=>{
-        client.end()
-        resp.json(data)
-    })
-    .finally(()=>client.end())
+    // client.connect()
+    // .then(()=>client.query("select * from users"))
+    // .then(data=>{
+    //     client.end()
+    //     resp.json(data)
+    // })
+    // .finally(()=>client.end())
+    client.connect();
 
+    client.query('SELECT * FROM users;', (err, res) => {
+      if (err) throw err;
+      for (let row of res.rows) {
+        console.log(JSON.stringify(row));
+      }
+      client.end();
+    });
     
 
 })
