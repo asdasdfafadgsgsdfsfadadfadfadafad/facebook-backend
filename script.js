@@ -8,7 +8,8 @@ app.use(cors())
 
 
 
-const pg = require("pg").Client
+const pg = require("pg").Client;
+const { json } = require("express");
 const client = new pg({
     connectionString: process.env.DATABASE_URL,
     ssl: {
@@ -27,12 +28,10 @@ app.get("/",(req,resp)=>{
     //     resp.json(data)
     // })
     // .finally(()=>client.end())
-    client.connect();
-
-    client.query('SELECT * FROM users;', (err, res) => {
-      client.end();
-      resp.json(res.rows)
-    });
+    client.connect()
+    .then(()=>client.query("select * from users"))
+    .then(data=>{resp.json(data)})
+    .finally(()=>client.end())
     
 
 })
