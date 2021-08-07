@@ -18,7 +18,7 @@ const client = new pg({
   })
 
 
-app.get("/",(req,resp)=>{
+app.get("/",async (req,resp)=>{
 
 
     // client.connect()
@@ -28,10 +28,13 @@ app.get("/",(req,resp)=>{
     //     resp.json(data)
     // })
     // .finally(()=>client.end())
-    client.connect()
-    .then(()=>client.query("select * from users"))
-    .then(data=>{resp.json(data)})
-    .finally(()=>client.end())
+    await client.connect()
+    const data = await client.query("select * from users")
+    await client.end()
+    resp.json(data)
+    // .then(()=>client.query("select * from users"))
+    // .then(data=>{resp.json(data)})
+    // .finally(()=>client.end())
     
 
 })
