@@ -30,9 +30,8 @@ app.get("/",(req,resp)=>{
     client.connect();
 
     client.query('SELECT * FROM users;', (err, res) => {
-      
-      resp.json(res.rows)
       client.end();
+      resp.json(res.rows)
     });
     
 
