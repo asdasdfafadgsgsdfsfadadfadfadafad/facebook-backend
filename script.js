@@ -8,7 +8,7 @@ const { json } = require("express");
 const client = new pg({
     connectionString: process.env.DATABASE_URL,
     ssl: {
-      rejectUnauthorized: false
+      rejectUnauthorized: true
     }
   })
 app.get("/",async (req,resp)=>{
@@ -23,23 +23,3 @@ app.get("/",async (req,resp)=>{
   }
 })
 app.listen(process.env.PORT || 3000)
-// const pg = require("pg").Client
-// const client = new pg({
-//    user:"postgres",
-//    password:"01203328888m",
-//    host:"127.0.0.1",
-//    port:5432,
-//    database:"boat"
-// })
-
-// client.connect()
-//     .then(()=>client.query("select * from users"))
-//     .then(data=>{
-//        client.end()
-//        console.log(data)
-//       })
-//     .finally(()=>{
-//       console.log("hi") 
-//       })
-
-
