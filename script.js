@@ -29,13 +29,13 @@ app.use(express.json())
 //   connection:{connectionString:process.env.DATABASE_URL,ssl:true}
 // });
 // process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"; //add this line is you have ssl:true
-// const knex = knex({
-//   client: 'pg',
-//   connection: {
-//     connectionString: process.env.DATABASE_URL,
-//     ssl: true,
-//   },
-// }); 
+const knex = knex({
+  client: 'pg',
+  connection: {
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  },
+}); 
 
 app.get("/",async (req,resp)=>{
     // const data = await knex.select("*").from("users")
