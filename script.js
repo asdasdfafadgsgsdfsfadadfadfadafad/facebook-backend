@@ -1,40 +1,40 @@
-const express = require("express");
-const cors = require("cors")
-const app = express()
-app.use(express.json())
-app.use(cors())
-const pg = require("pg").Client;
-const { json } = require("express");
-const client = new pg({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: true
-    }
-  })
+// const express = require("express");
+// const cors = require("cors")
+// const app = express()
+// app.use(express.json())
+// app.use(cors())
+// const pg = require("pg").Client;
+// const { json } = require("express");
+// const client = new pg({
+//     connectionString: process.env.DATABASE_URL,
+//     ssl: {
+//       rejectUnauthorized: true
+//     }
+//   })
 
-  const db = knex({
-    client: "pg",
-    connection: {
-      connectionString: process.env.DATABASE_URL,
-      ssl: {
-        rejectUnauthorized: false,
-      },
-    },
-  });
+var connString = 'postgres://mpbbgipyupbyjm:ee206bab993795a61583939d27ab71694c08213faf5b246c3709c141fb3c33f9@ec2-44-196-250-191.compute-1.amazonaws.com:5432/d35glak0q560u4';
 
+var pg = require('pg');
+var express = require("express");
+var app = express();
+app.use(express.logger());
 
+app.get('/', function(request, response) {
 
-app.get("/",async (req,resp)=>{
-  db.select("*")
-  .from("users")
-  .then((user) => {
-    if (user.length) {
-      return res.json(user[0]);
-    } else {
-      res.status(400).json("no profile id");
-    }
-  })
-  .catch((err) => res.status(400).json(err));
+	pg.connect(connString, function(err, client, done) {
+		if(err) response.send("Could not connect to DB: " + err);
+		client.query('SELECT * FROM users', function(err, result) {
+			done();
+			if(err) return response.send(err);
+			response.send(result.rows);
+		});
+	});
+});
+
+app.listen(process.env.PORT || 3000)
+
+// app.get("/",async (req,resp)=>{
+  
 
   // try {
   //     await client.connect
@@ -80,5 +80,5 @@ app.get("/",async (req,resp)=>{
   
 
 
-})
-app.listen(process.env.PORT || 3000)
+// })
+// app.listen(process.env.PORT || 3000)
