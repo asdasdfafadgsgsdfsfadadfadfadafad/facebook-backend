@@ -30,8 +30,8 @@ const knex = require('knex')({
   connection:{connectionString:process.env.DATABASE_URL,ssl:true}
 });
 app.get("/",async (req,resp)=>{
-    const data = await knex.select("*").from("users")
-    resp.json(data)
+    // const data = await knex.select("*").from("users")
+    resp.json("data")
 })
 app.listen(process.env.PORT || 3000)
    
