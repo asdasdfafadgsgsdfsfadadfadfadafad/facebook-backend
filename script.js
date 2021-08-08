@@ -12,7 +12,7 @@ const client = new pg({
     }
   })
 
-  const database = knex({
+  const db = knex({
     client: "pg",
     connection: {
       connectionString: process.env.DATABASE_URL,
@@ -25,8 +25,16 @@ const client = new pg({
 
 
 app.get("/",async (req,resp)=>{
-  database.select("*").from("users")
-  .then(data=>resp.json(data))
+  db.select("*")
+  .from("users")
+  .then((user) => {
+    if (user.length) {
+      return res.json(user[0]);
+    } else {
+      res.status(400).json("no profile id");
+    }
+  })
+  .catch((err) => res.status(400).json(err));
 
   // try {
   //     await client.connect
