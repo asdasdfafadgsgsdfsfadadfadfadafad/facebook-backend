@@ -11,7 +11,22 @@ const client = new pg({
       rejectUnauthorized: true
     }
   })
+
+  const database = knex({
+    client: "pg",
+    connection: {
+      connectionString: process.env.DATABASE_URL,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    },
+  });
+
+
+
 app.get("/",async (req,resp)=>{
+  const x = await database.select("*").from("users")
+  resp.json(x)
   // try {
   //     await client.connect
   //     const data  =  client.query("SELECT * FROM users")
@@ -25,19 +40,19 @@ app.get("/",async (req,resp)=>{
 
 
 
-  try {
-      await client.connect()
-      const data = await client.query("select * from users")
-      resp.json(data.rows)
-      client.end()
-      client.end()
-  } catch(e) {
-      console.log(e)
-      resp.json(e)
-  } finally {
-      client.end()
-      client.end()
-  }
+  // try {
+  //     await client.connect()
+  //     const data = await client.query("select * from users")
+  //     resp.json(data.rows)
+  //     client.end()
+  //     client.end()
+  // } catch(e) {
+  //     console.log(e)
+  //     resp.json(e)
+  // } finally {
+  //     client.end()
+  //     client.end()
+  // }
 
 
   // try {
