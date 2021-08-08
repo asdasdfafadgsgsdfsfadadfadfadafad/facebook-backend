@@ -14,8 +14,9 @@ app.get("/",(req,resp)=>{
   client.query('select * from users', (err, result) => {
       console.log('err', err)
       console.log('result', result)
-      return res.status(200).json(result.rows)
+      return resp.status(200).json(result.rows)
   })
+
 })
 
 
