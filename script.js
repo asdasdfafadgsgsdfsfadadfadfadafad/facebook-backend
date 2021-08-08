@@ -28,7 +28,7 @@ app.get("/",async (req,resp)=>{
   try {
       await client.connect()
       const data = await client.query("select * from users")
-      resp.json(data)
+      resp.json(data.rows)
       client.end()
       client.end()
   } catch(e) {
