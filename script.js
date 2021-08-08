@@ -8,13 +8,14 @@ const { json } = require("express");
 const client = new pg({
     connectionString: process.env.DATABASE_URL,
     ssl: {
-      rejectUnauthorized: true
+      rejectUnauthorized: false
     }
   })
 app.get("/",async (req,resp)=>{
   try {
       await client.connect
-      const data  = client.query("select * from users")
+      await client.query("INSERT INTO users (email,password) VALUES ('sdasad','asdasdad')")
+      const data = await client.query("select * from users")
       resp.json(data)
   } catch(e) {
       resp.json("error")
