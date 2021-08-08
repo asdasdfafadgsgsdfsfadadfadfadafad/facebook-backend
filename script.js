@@ -4,47 +4,38 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-const pg = require("pg").Client;
 
+
+
+
+const pg = require("pg").Client;
+const { json } = require("express");
 const client = new pg({
     connectionString: process.env.DATABASE_URL,
     ssl: {
       rejectUnauthorized: false
     }
   })
-const getdata = () =>{
-  await client.connect()
-  const data = await client.query("select * from users")
-  await client.end()
-  return data
-}
-getdata()
+
+
 app.get("/",async (req,resp)=>{
-    resp.json("data")
+
+
+    // client.connect()
+    // .then(()=>client.query("select * from users"))
+    // .then(data=>{
+    //     client.end()
+    //     resp.json(data)
+    // })
+    // .finally(()=>client.end())
+    await client.connect()
+    const data = await client.query("select * from users")
+    await client.end()
+    resp.json(data)
+    // .then(()=>client.query("select * from users"))
+    // .then(data=>{resp.json(data)})
+    // .finally(()=>client.end())
+    
+
 })
 app.listen(process.env.PORT || 3000)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
