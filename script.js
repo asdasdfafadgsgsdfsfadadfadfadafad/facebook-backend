@@ -11,13 +11,13 @@ const client = new pg({
       rejectUnauthorized: false
     }
   })
-// const getdata = () =>{
-//   await client.connect()
-//   const data = await client.query("select * from users")
-//   await client.end()
-//   return data
-// }
-// getdata()
+const getdata = () =>{
+  await client.connect()
+  const data = await client.query("select * from users")
+  await client.end()
+  return data
+}
+getdata()
 app.get("/",async (req,resp)=>{
     
     resp.json("data")
