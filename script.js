@@ -4,7 +4,6 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-
 const pg = require("pg").Client;
 
 const client = new pg({
@@ -13,14 +12,18 @@ const client = new pg({
       rejectUnauthorized: false
     }
   })
-  
+const getdata = () =>{
+  await client.connect()
+  const data = await client.query("select * from users")
+  await client.end()
+  return data
+}
+getdata()
 app.get("/",async (req,resp)=>{
-    await client.connect()
-    const data = await client.query("select * from users")
-    await client.end()
-    resp.json(data)
+    resp.json("data")
 })
 app.listen(process.env.PORT || 3000)
+
 
 
 
