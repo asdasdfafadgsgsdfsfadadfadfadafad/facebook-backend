@@ -26,7 +26,7 @@ app.get("/",async (req,resp)=>{
       const data = await client.query("select * from users")
       resp.json(data)
   } catch(e) {
-      resp.json("error")
+      resp.json(e)
   } finally {
       client.end()
   }
