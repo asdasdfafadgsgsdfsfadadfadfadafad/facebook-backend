@@ -20,8 +20,36 @@ const getdata = () =>{
 getdata()
 app.get("/",async (req,resp)=>{
     
-    resp.json("data")
-
+  client.connect()
+  .then(()=>client.query("select * from users"))
+  .then(data=>{
+     client.end()
+     console.log(data)
+    })
+  .finally(()=>{
+    console.log("hi") 
+    })
+  resp.json("hi")
   
 })
 app.listen(process.env.PORT || 3000)
+// const pg = require("pg").Client
+// const client = new pg({
+//    user:"postgres",
+//    password:"01203328888m",
+//    host:"127.0.0.1",
+//    port:5432,
+//    database:"boat"
+// })
+
+// client.connect()
+//     .then(()=>client.query("select * from users"))
+//     .then(data=>{
+//        client.end()
+//        console.log(data)
+//       })
+//     .finally(()=>{
+//       console.log("hi") 
+//       })
+
+
