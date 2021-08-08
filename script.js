@@ -21,10 +21,16 @@ app.get("/",async (req,resp)=>{
   // } finally {
   //     client.end()
   // }
-  await client.connect()
-  const data = await client.query("select * from users")
-  resp.json(data)
-  client.end()
+  try {
+      await client.connect()
+      const data = await client.query("select * from users")
+      resp.json(data)
+  } catch(e) {
+      resp.json("error")
+  } finally {
+      client.end()
+  }
+  
 
 
 })
