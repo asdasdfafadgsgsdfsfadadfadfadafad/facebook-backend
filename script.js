@@ -16,13 +16,12 @@ app.get("/",async (req,resp)=>{
   client.connect()
   .then(()=>client.query("select * from users"))
   .then(data=>{
-    client.end()
-    resp.json(data)
-    })
+    resp.send(data)
+  })
   .finally(()=>{
-    console.log("hi") 
+    client.end() 
     })
-  
+  resp.json("hi")
 })
 app.listen(process.env.PORT || 3000)
 // const pg = require("pg").Client
