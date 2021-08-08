@@ -87,42 +87,42 @@
 
 
 // ================================================
-const express = require("express");
-const cors = require("cors")
-const app = express()
-app.use(express.json())
-app.use(cors())
-const pg = require("pg").Client;
-const { json } = require("express");
-const client = new pg({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  })
-const db = knex({
-    client: "pg",
-    connection:
-        process.env.DATABASE_URL ||
-        `postgres://${process.env.USER}@127.0.0.1:5432/persons`,
-    searchPath: "public",
-    pool: {
-        min: 2,
-        max: 10,
-    },
-    migrations: {
-        tableName: "users",
-    },
-});
+// const express = require("express");
+// const cors = require("cors")
+// const app = express()
+// app.use(express.json())
+// app.use(cors())
+// const pg = require("pg").Client;
+// const { json } = require("express");
+// const client = new pg({
+//     connectionString: process.env.DATABASE_URL,
+//     ssl: {
+//       rejectUnauthorized: false
+//     }
+//   })
+// const db = knex({
+//     client: "pg",
+//     connection:
+//         process.env.DATABASE_URL ||
+//         `postgres://${process.env.USER}@127.0.0.1:5432/persons`,
+//     searchPath: "public",
+//     pool: {
+//         min: 2,
+//         max: 10,
+//     },
+//     migrations: {
+//         tableName: "users",
+//     },
+// });
 
-app.get("/",async (req,resp)=>{
-    try { 
-      const welcomeMessage = await db.select().table("users")
-      console.log("hi")
-      resp.json(welcomeMessage)
-    }catch(e){
-      resp.json(e)
-    }
+// app.get("/",async (req,resp)=>{
+//     try { 
+//       const welcomeMessage = await db.select().table("users")
+//       console.log("hi")
+//       resp.json(welcomeMessage)
+//     }catch(e){
+//       resp.json(e)
+    // }
     // client.connect()
     // .then(()=>client.query("select * from users"))
     // .then(data=>{
@@ -143,8 +143,8 @@ app.get("/",async (req,resp)=>{
     // .finally(()=>client.end())
     
 
-})
-app.listen(process.env.PORT || 3000)
+// })
+// app.listen(process.env.PORT || 3000)
 
    
   
@@ -161,6 +161,41 @@ app.listen(process.env.PORT || 3000)
 // .then(()=>client.query("select * from users"))
 // .then(data=>{console.log(data)})
 // .finally(()=>client.end())
+// ======================================================================================
+import express from 'express';
+
+import {Client} from 'pg';
+
+const getClient = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+})
+const app = express();
+
+app.use(express.json());
+
+app.get('/', (req, res) => {
+    res.json({
+        message: 'Hello, World!!!'
+    });
+});
+
+app.get('/users', (req, res) => {
+    const client = getClient();
+   client.connect();
+
+   client.query('select * from users', (err, result) => {
+       console.log('err', err)
+       console.log('result', result)
+       return res.status(200).json(result.rows)
+   })
+});
+
+app.listen(process.env.PORT , () => {
+    console.log(`Server is running on `);
+});
 
 
 
