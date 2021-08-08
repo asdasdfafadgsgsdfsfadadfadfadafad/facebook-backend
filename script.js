@@ -164,37 +164,34 @@
 // ======================================================================================
 import express from 'express';
 
-import {Client} from 'pg';
-
-const getClient = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
-})
 const app = express();
+// const pg =  require("pg").Client
 
-app.use(express.json());
+// const client = new pg ({
+//     connectionString: process.env.DATABASE_URL,
+//     ssl: {
+//         rejectUnauthorized: false
+//     }
+// })
+
 
 app.get('/', (req, res) => {
-    res.json({
-        message: 'Hello, World!!!'
-    });
+    res.json("asdasdasdsasdasd");
 });
 
 app.listen(process.env.PORT , () => {
-    console.log(`Server is running on `);
+console.log(`Server is running on `);
 });
-app.get('/users', (req, res) => {
-    const client = getClient;
-   client.connect();
+// app.get('/users', (req, res) => {
+//     const client = getClient;
+//    client.connect();
 
-   client.query('select * from users', (err, result) => {
-       console.log('err', err)
-       console.log('result', result)
-       return res.status(200).json(result.rows)
-   })
-});
+//    client.query('select * from users', (err, result) => {
+//        console.log('err', err)
+//        console.log('result', result)
+//        return res.status(200).json(result.rows)
+//    })
+// });
 
 
 
