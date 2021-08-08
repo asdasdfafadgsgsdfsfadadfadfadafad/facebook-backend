@@ -14,7 +14,7 @@ const client = new pg({
 app.get("/",async (req,resp)=>{
   try {
       await client.connect
-      const data  = client.query("select * from userxxs")
+      const data  = await client.query("SELECT * FROM users")
       resp.json(data)
   } catch(e) {
       resp.json("error")
