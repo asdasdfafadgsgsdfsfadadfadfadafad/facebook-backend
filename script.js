@@ -37,8 +37,8 @@ const knex = knex({
   },
 }); 
 app.get("/",async (req,resp)=>{
-    const data = await knex.select("*").from("users")
-    resp.json(data)
+    // const data = await knex.select("*").from("users")
+    resp.json("data")
 })
 app.listen(process.env.PORT || 3000)
    
