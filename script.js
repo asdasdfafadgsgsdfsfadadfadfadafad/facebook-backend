@@ -1,15 +1,21 @@
 const express = require("express")
 const app = express()
-// const pg = require("pg")
-// const client = new pg({
-//     connectionString: process.env.DATABASE_URL,
-//     ssl: {
-//       rejectUnauthorized: true
-//     }
-//   })
+const pg = require("pg")
+
 
 app.get("/",(req,resp)=>{
-   resp.json("helyo")
+  const client = new pg({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: true
+    }
+  })
+  client.connect();
+  client.query('select * from users', (err, result) => {
+      console.log('err', err)
+      console.log('result', result)
+      return res.status(200).json(result.rows)
+  })
 })
 
 
