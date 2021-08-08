@@ -3,11 +3,6 @@ const cors = require("cors")
 const app = express()
 app.use(express.json())
 app.use(cors())
-
-
-
-
-
 const pg = require("pg").Client;
 const { json } = require("express");
 const client = new pg({
@@ -16,26 +11,17 @@ const client = new pg({
       rejectUnauthorized: false
     }
   })
-
-
+// const getdata = () =>{
+//   await client.connect()
+//   const data = await client.query("select * from users")
+//   await client.end()
+//   return data
+// }
+// getdata()
 app.get("/",async (req,resp)=>{
-
-
-    // client.connect()
-    // .then(()=>client.query("select * from users"))
-    // .then(data=>{
-    //     client.end()
-    //     resp.json(data)
-    // })
-    // .finally(()=>client.end())
-    await client.connect()
-    const data = await client.query("select * from users")
-    await client.end()
-    resp.json(data)
-    // .then(()=>client.query("select * from users"))
-    // .then(data=>{resp.json(data)})
-    // .finally(()=>client.end())
     
+    resp.json("data")
 
+  
 })
 app.listen(process.env.PORT || 3000)
