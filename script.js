@@ -8,7 +8,7 @@ const { json } = require("express");
 const client = new pg({
     connectionString: process.env.DATABASE_URL,
     ssl: {
-      rejectUnauthorized: false
+      rejectUnauthorized: true
     }
   })
 app.get("/",async (req,resp)=>{
