@@ -16,6 +16,7 @@ app.get("/",(req,resp)=>{
       console.log('result', result)
       return resp.status(200).json(result.rows)
   })
+  resp.json("asdasdas")
 
 })
 
