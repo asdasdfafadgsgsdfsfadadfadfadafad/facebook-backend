@@ -12,17 +12,15 @@ const client = new pg({
     }
   })
 app.get("/",async (req,resp)=>{
-  client.connect()
-  .then(()=>client.query("select * from users"))
-  .then(data=>{
-    return data
-  }).then((d)=>{
-    resp.json(d)
-  })
-  .finally(()=>{
-    client.end() 
-  })
-  resp.send("it didnt work sorry")
+  try {
+      await client.connect
+      const data  = client.query("select * from users")
+      resp.json(data)
+  } catch(e) {
+      resp.json("error")
+  } finally {
+      client.end()
+  }
 })
 app.listen(process.env.PORT || 3000)
 // const pg = require("pg").Client
