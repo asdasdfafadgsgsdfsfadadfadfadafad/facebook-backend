@@ -14,9 +14,9 @@ const client = new pg({
 app.get("/",async (req,resp)=>{
   try {
       await client.connect
-      await client.query("INSERT INTO users (email,password) VALUES ('sdasad','asdasdad')")
-      const data = await client.query("select * from users")
-      resp.json(data)
+      const insert = await client.query("INSERT INTO users(email,password) VALUES($1,$2) RETURNING *",['brianc', 'brian.m.carlson@gmail.com'])
+      const data = await client.query("SELECT * FROM users")
+      resp.json(insert)
   } catch(e) {
       resp.json("error")
   } finally {
