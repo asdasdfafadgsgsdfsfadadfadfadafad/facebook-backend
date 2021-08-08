@@ -116,10 +116,13 @@ const db = knex({
 });
 
 app.get("/",async (req,resp)=>{
-     
-    const welcomeMessage = await db.select().table("users")
-    console.log("hi")
-    resp.json(welcomeMessage)
+    try { 
+      const welcomeMessage = await db.select().table("users")
+      console.log("hi")
+      resp.json(welcomeMessage)
+    }catch(e){
+      resp.json(e)
+    }
     // client.connect()
     // .then(()=>client.query("select * from users"))
     // .then(data=>{
