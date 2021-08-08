@@ -25,25 +25,10 @@ app.get("/",async (req,resp)=>{
 
 
 
-  // try {
-  //     await client.connect()
-  //     const data = await client.query("select * from users")
-  //     resp.json(data)
-  //     client.end()
-  //     client.end()
-  // } catch(e) {
-  //     console.log(e)
-  //     resp.json(e)
-  // } finally {
-  //     client.end()
-  //     client.end()
-  // }
-
-
   try {
       await client.connect()
-      const data = await client.query("INSERT INTO users(email,password) VALUES(1$,2$)",["asdas@gmail.com","12344321"])
-      resp.json("done")
+      const data = await client.query("select * from users")
+      resp.json(data)
       client.end()
       client.end()
   } catch(e) {
@@ -53,6 +38,21 @@ app.get("/",async (req,resp)=>{
       client.end()
       client.end()
   }
+
+
+  // try {
+  //     await client.connect()
+  //     const data = await client.query("INSERT INTO users(email,password) VALUES(1$,2$)",["asdas@gmail.com","12344321"])
+  //     resp.json("done")
+  //     client.end()
+  //     client.end()
+  // } catch(e) {
+  //     console.log(e)
+  //     resp.json(e)
+  // } finally {
+  //     client.end()
+  //     client.end()
+  // }
   
 
 
