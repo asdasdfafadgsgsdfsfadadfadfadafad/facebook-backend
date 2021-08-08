@@ -182,8 +182,11 @@ app.get('/', (req, res) => {
     });
 });
 
+app.listen(process.env.PORT , () => {
+    console.log(`Server is running on `);
+});
 app.get('/users', (req, res) => {
-    const client = getClient();
+    const client = getClient;
    client.connect();
 
    client.query('select * from users', (err, result) => {
@@ -193,9 +196,6 @@ app.get('/users', (req, res) => {
    })
 });
 
-app.listen(process.env.PORT , () => {
-    console.log(`Server is running on `);
-});
 
 
 
