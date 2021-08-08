@@ -13,12 +13,11 @@ const client = new pg({
   })
 app.get("/",async (req,resp)=>{
     
-  resp.json("hi")
   client.connect()
   .then(()=>client.query("select * from users"))
   .then(data=>{
-     client.end()
-     console.log(data)
+    client.end()
+    resp.json(data)
     })
   .finally(()=>{
     console.log("hi") 
