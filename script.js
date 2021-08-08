@@ -11,15 +11,9 @@ const client = new pg({
       rejectUnauthorized: false
     }
   })
-const getdata = () =>{
-  await client.connect()
-  const data = await client.query("select * from users")
-  await client.end()
-  return data
-}
-getdata()
 app.get("/",async (req,resp)=>{
     
+  resp.json("hi")
   client.connect()
   .then(()=>client.query("select * from users"))
   .then(data=>{
@@ -29,7 +23,6 @@ app.get("/",async (req,resp)=>{
   .finally(()=>{
     console.log("hi") 
     })
-  resp.json("hi")
   
 })
 app.listen(process.env.PORT || 3000)
